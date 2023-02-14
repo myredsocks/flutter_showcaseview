@@ -75,6 +75,9 @@ class Showcase extends StatefulWidget {
   /// Radius of rectangle box while target widget is being showcased.
   final BorderRadius? targetBorderRadius;
 
+  /// Padding of rectangle box while target widget is being showcased.
+  final EdgeInsets? targetBorderPadding;
+
   /// TextStyle for default tooltip title
   final TextStyle? titleTextStyle;
 
@@ -267,6 +270,7 @@ class Showcase extends StatefulWidget {
     this.blurValue,
     this.targetBorderSide = BorderSide.none,
     this.targetBorderRadius,
+    this.targetBorderPadding,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
     this.tooltipBorderRadius,
@@ -301,6 +305,7 @@ class Showcase extends StatefulWidget {
     this.overlayColor = Colors.black45,
     this.targetBorderRadius,
     this.targetBorderSide = BorderSide.none,
+    this.targetBorderPadding,
     this.overlayOpacity = 0.75,
     this.scrollLoadingWidget = const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation(Colors.white)),
@@ -522,6 +527,7 @@ class _ShowcaseState extends State<Showcase> {
             onTap: _getOnTargetTap,
             side: widget.targetBorderSide,
             radius: widget.targetBorderRadius,
+            padding: widget.targetBorderPadding,
             onDoubleTap: widget.onTargetDoubleTap,
             onLongPress: widget.onTargetLongPress,
             shapeBorder: widget.targetShapeBorder,
@@ -574,6 +580,7 @@ class _TargetWidget extends StatelessWidget {
   final ShapeBorder? shapeBorder;
   final BorderSide? side;
   final BorderRadius? radius;
+  final EdgeInsets? padding;
   final bool disableDefaultChildGestures;
 
   const _TargetWidget({
@@ -584,6 +591,7 @@ class _TargetWidget extends StatelessWidget {
     this.shapeBorder,
     this.side,
     this.radius,
+    this.padding,
     this.onDoubleTap,
     this.onLongPress,
     this.disableDefaultChildGestures = false,
@@ -603,8 +611,9 @@ class _TargetWidget extends StatelessWidget {
             onLongPress: onLongPress,
             onDoubleTap: onDoubleTap,
             child: Container(
-              height: size!.height + 16,
-              width: size!.width + 16,
+              height: size!.height,
+              width: size!.width,
+              padding: padding ?? const EdgeInsets.all(8),
               decoration: ShapeDecoration(
                 shape: radius != null
                     ? RoundedRectangleBorder(
