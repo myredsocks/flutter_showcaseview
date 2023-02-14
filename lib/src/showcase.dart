@@ -75,8 +75,8 @@ class Showcase extends StatefulWidget {
   /// Radius of rectangle box while target widget is being showcased.
   final BorderRadius? targetBorderRadius;
 
-  /// Padding of rectangle box while target widget is being showcased.
-  final EdgeInsets? targetBorderPadding;
+  /// Margin of rectangle box while target widget is being showcased.
+  final EdgeInsets? targetBorderMargin;
 
   /// TextStyle for default tooltip title
   final TextStyle? titleTextStyle;
@@ -270,7 +270,7 @@ class Showcase extends StatefulWidget {
     this.blurValue,
     this.targetBorderSide = BorderSide.none,
     this.targetBorderRadius,
-    this.targetBorderPadding,
+    this.targetBorderMargin,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
     this.tooltipBorderRadius,
@@ -305,7 +305,7 @@ class Showcase extends StatefulWidget {
     this.overlayColor = Colors.black45,
     this.targetBorderRadius,
     this.targetBorderSide = BorderSide.none,
-    this.targetBorderPadding,
+    this.targetBorderMargin,
     this.overlayOpacity = 0.75,
     this.scrollLoadingWidget = const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation(Colors.white)),
@@ -527,7 +527,7 @@ class _ShowcaseState extends State<Showcase> {
             onTap: _getOnTargetTap,
             side: widget.targetBorderSide,
             radius: widget.targetBorderRadius,
-            padding: widget.targetBorderPadding,
+            margin: widget.targetBorderMargin,
             onDoubleTap: widget.onTargetDoubleTap,
             onLongPress: widget.onTargetLongPress,
             shapeBorder: widget.targetShapeBorder,
@@ -580,7 +580,7 @@ class _TargetWidget extends StatelessWidget {
   final ShapeBorder? shapeBorder;
   final BorderSide? side;
   final BorderRadius? radius;
-  final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final bool disableDefaultChildGestures;
 
   const _TargetWidget({
@@ -591,7 +591,7 @@ class _TargetWidget extends StatelessWidget {
     this.shapeBorder,
     this.side,
     this.radius,
-    this.padding,
+    this.margin,
     this.onDoubleTap,
     this.onLongPress,
     this.disableDefaultChildGestures = false,
@@ -613,7 +613,7 @@ class _TargetWidget extends StatelessWidget {
             child: Container(
               height: size!.height,
               width: size!.width,
-              padding: padding ?? const EdgeInsets.all(8),
+              margin: margin ?? const EdgeInsets.all(8),
               decoration: ShapeDecoration(
                 shape: radius != null
                     ? RoundedRectangleBorder(
