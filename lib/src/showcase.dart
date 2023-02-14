@@ -611,9 +611,8 @@ class _TargetWidget extends StatelessWidget {
             onLongPress: onLongPress,
             onDoubleTap: onDoubleTap,
             child: Container(
-              height: size!.height,
-              width: size!.width,
-              margin: margin ?? const EdgeInsets.all(8),
+              height: size!.height + (margin?.vertical ?? 16),
+              width: size!.width + (margin?.horizontal ?? 16),
               decoration: ShapeDecoration(
                 shape: radius != null
                     ? RoundedRectangleBorder(
