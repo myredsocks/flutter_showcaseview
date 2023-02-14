@@ -69,6 +69,9 @@ class Showcase extends StatefulWidget {
   /// ```
   final ShapeBorder targetShapeBorder;
 
+  /// Border of rectangle box while target widget is being showcased.
+  final BorderSide targetBorderSide;
+
   /// Radius of rectangle box while target widget is being showcased.
   final BorderRadius? targetBorderRadius;
 
@@ -262,6 +265,7 @@ class Showcase extends StatefulWidget {
     this.onToolTipClick,
     this.targetPadding = EdgeInsets.zero,
     this.blurValue,
+    this.targetBorderSide = BorderSide.none,
     this.targetBorderRadius,
     this.onTargetLongPress,
     this.onTargetDoubleTap,
@@ -296,6 +300,7 @@ class Showcase extends StatefulWidget {
     ),
     this.overlayColor = Colors.black45,
     this.targetBorderRadius,
+    this.targetBorderSide = BorderSide.none,
     this.overlayOpacity = 0.75,
     this.scrollLoadingWidget = const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation(Colors.white)),
@@ -515,6 +520,7 @@ class _ShowcaseState extends State<Showcase> {
             offset: offset,
             size: size,
             onTap: _getOnTargetTap,
+            side: widget.targetBorderSide,
             radius: widget.targetBorderRadius,
             onDoubleTap: widget.onTargetDoubleTap,
             onLongPress: widget.onTargetLongPress,
@@ -566,6 +572,7 @@ class _TargetWidget extends StatelessWidget {
   final VoidCallback? onDoubleTap;
   final VoidCallback? onLongPress;
   final ShapeBorder? shapeBorder;
+  final BorderSide? side;
   final BorderRadius? radius;
   final bool disableDefaultChildGestures;
 
@@ -575,6 +582,7 @@ class _TargetWidget extends StatelessWidget {
     this.size,
     this.onTap,
     this.shapeBorder,
+    this.side,
     this.radius,
     this.onDoubleTap,
     this.onLongPress,
@@ -599,7 +607,8 @@ class _TargetWidget extends StatelessWidget {
               width: size!.width + 16,
               decoration: ShapeDecoration(
                 shape: radius != null
-                    ? RoundedRectangleBorder(borderRadius: radius!)
+                    ? RoundedRectangleBorder(
+                        borderRadius: radius!, side: side ?? BorderSide.none)
                     : shapeBorder ??
                         const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
