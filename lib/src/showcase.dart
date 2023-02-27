@@ -487,20 +487,30 @@ class _ShowcaseState extends State<Showcase> {
               _nextIfAny();
             }
           },
-          child: ClipPath(
-            clipper: RRectClipper(
-              area: _isScrollRunning ? Rect.zero : rectBound,
-              isCircle: widget.targetShapeBorder is CircleBorder,
-              radius: _isScrollRunning
-                  ? BorderRadius.zero
-                  : widget.targetBorderRadius,
-              overlayPadding:
-                  _isScrollRunning ? EdgeInsets.zero : widget.targetPadding,
-            ),
-            child: blur != 0
-                ? BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                    child: Container(
+          child: AbsorbPointer(
+            child: ClipPath(
+              clipper: RRectClipper(
+                area: _isScrollRunning ? Rect.zero : rectBound,
+                isCircle: widget.targetShapeBorder is CircleBorder,
+                radius: _isScrollRunning
+                    ? BorderRadius.zero
+                    : widget.targetBorderRadius,
+                overlayPadding:
+                    _isScrollRunning ? EdgeInsets.zero : widget.targetPadding,
+              ),
+              child: blur != 0
+                  ? BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                          color: widget.overlayColor
+                              .withOpacity(widget.overlayOpacity),
+                        ),
+                      ),
+                    )
+                  : Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
@@ -508,15 +518,7 @@ class _ShowcaseState extends State<Showcase> {
                             .withOpacity(widget.overlayOpacity),
                       ),
                     ),
-                  )
-                : Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                      color: widget.overlayColor
-                          .withOpacity(widget.overlayOpacity),
-                    ),
-                  ),
+            ),
           ),
         ),
         if (_isScrollRunning) Center(child: widget.scrollLoadingWidget),
